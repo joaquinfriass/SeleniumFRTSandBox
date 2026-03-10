@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,7 +18,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BasePage {
     
-    protected static WebDriver driver;
+    public static WebDriver driver;
     //Se configura el tiempo de espera para los elementos, en este caso 5 segundos
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
@@ -45,6 +47,12 @@ public class BasePage {
     //Método helper que encapsula una espera explícita utilizando WebDriverWait y ExpectedConditions para esperar hasta que un elemento esté presente en el DOM usando un locator XPath
     protected WebElement Find(String locator){
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+    }
+
+    //Método para tomar una captura de pantalla, que utiliza la interfaz TakesScreenshot para capturar la pantalla actual del navegador y devuelve la imagen como un arreglo de bytes.
+    public static byte[] takeScreenshot(){
+    return ((TakesScreenshot) driver)
+            .getScreenshotAs(OutputType.BYTES);
     }
 
     public void clickElement(String locator) {
@@ -87,8 +95,6 @@ public class BasePage {
         List<WebElement> elements = driver.findElements(By.xpath(locator));
         return elements.stream().map(WebElement::getText).collect(Collectors.toList());
     }
-
-
 
 
 }

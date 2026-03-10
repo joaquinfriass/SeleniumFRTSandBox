@@ -1,10 +1,12 @@
 package steps;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import io.cucumber.datatable.DataTable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 import java.util.List;
+import java.util.Map;
 
 import io.cucumber.java.en.*;
 import pages.FRTSandBox;
@@ -97,6 +99,57 @@ public class FRTSteps {
     public void aPopupShouldBeDisplayedWithTheMessage(String expectedMessage) {
         String actualMessage = frtSandBox.getPopupMessage();
         assertEquals(expectedMessage, actualMessage);
+    }
+
+
+    @Then("The static table should have the following headers")
+    public void theStaticTableShouldHaveTheFollowingHeaders(DataTable dataTable) {
+        List<String> expectedHeaders = dataTable.asList();
+        List<String> actualHeaders = frtSandBox.getStaticTableHeaders();
+        assertEquals(expectedHeaders, actualHeaders);
+    }
+
+    @Then("The static table should have 3 rows")
+    public void theStaticTableShouldHave3Rows() {
+        assertEquals(3, frtSandBox.getStaticTableRowCount());
+    }
+
+    @Then("The static table should contain a record with ID {int}, Nombre {string}, Edad {int}, Email {string}")
+    public void theStaticTableShouldContainRecord(int id, String name, int age, String email) {
+        boolean recordExists = frtSandBox.recordExist(id, name, age, email);
+        assertTrue(recordExists);
+    }
+
+    @Then("The static table should have the following structure")
+    public void theStaticTableShouldHaveTheFollowingStructure(DataTable dataTable) {
+        List<Map<String, String>> expectedStructure = dataTable.asMaps(String.class, String.class);
+        frtSandBox.validateStaticTableStructure(expectedStructure);
+    }
+
+    @Then("The dynamic table should have {int} columns")
+    public void theDynamicTableShouldHaveColumns(int expectedColumnCount) {
+        assertEquals(frtSandBox.getcolumnsCount(), expectedColumnCount);
+    }
+
+    @Then("The dynamic table should have at least {int} row loaded")
+    public void theDynamicTableShouldHaveAtLeastRowLoaded(int expectedMinimumRowCount) {
+        int actualRowCount = frtSandBox.getDynamicTableRowCount();
+            assertTrue( actualRowCount >= expectedMinimumRowCount, "Expected at least " + expectedMinimumRowCount + " rows but found " + actualRowCount);
+    }
+
+    @Then("The dynamic table should not have empty cells")
+    public void theDynamicTableShouldNotHaveEmptyCells() {
+        frtSandBox.validateDynamicTableNoEmptyCells();
+    }
+
+    @Then("The dynamic table should not have duplicate cells")
+    public void theDynamicTableShouldNotHaveDuplicateCells() {
+        frtSandBox.validateDynamicTableNoDuplicateCells();
+    }
+
+    @When("The dynamic table values should change after refresh")
+    public void theDynamicTableValuesShouldChangeAfterRefresh() {
+        frtSandBox.refreshAndValidateDynamicTableValuesChange();
     }
 
 }

@@ -10,8 +10,8 @@ import pages.BasePage;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     features = "src/test/resources", //Directorio de nuestros archivos .feature
-    glue = "steps", // Paquete donde se encuentran nuestras clases de pasos (step definitions)
-    plugin = {"pretty", "html:target/cucumber-reports"} // Genera un reporte HTML
+    glue = {"steps","hooks"}, // Paquete donde se encuentran nuestras clases de pasos (step definitions)
+    plugin = {"pretty", "html:target/cucumber-reports.html"} // Genera un reporte HTML
 )
 
 public class TestRunner {
