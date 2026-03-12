@@ -1,12 +1,12 @@
 Feature: Verificando las tablas del SandBox
-    Verificando el correcto funcionamiento de las tablas en la página de prueba.
 
     # Validar headers
     # Validar cantidad de filas
     # Validar registros específicos
     # Validar formato de datos y estructura de la tabla
 
-    Scenario: Validar Headers de la Tabla estática
+    Scenario: Validar Headers de la Tabla estática 
+
         Given I navigate to FRTSandBox
         Then The static table should have the following headers
             | ID |

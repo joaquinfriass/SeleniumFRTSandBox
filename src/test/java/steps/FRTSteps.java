@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import io.cucumber.java.en.*;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import pages.FRTSandBox;
 
 public class FRTSteps {
@@ -100,12 +104,15 @@ public class FRTSteps {
         assertEquals(expectedMessage, actualMessage);
     }
 
-
+    @Epic("FRT Sandbox")
+    @Feature("Static Table")
+    @Story("Validación de headers")
+    @Description("Verifica que la tabla contenga los encabezados correctos")
     @Then("The static table should have the following headers")
     public void theStaticTableShouldHaveTheFollowingHeaders(DataTable dataTable) {
-        List<String> expectedHeaders = dataTable.asList();
-        List<String> actualHeaders = frtSandBox.getStaticTableHeaders();
-        assertEquals(expectedHeaders, actualHeaders);
+    List<String> expectedHeaders = dataTable.asList();
+    List<String> actualHeaders = frtSandBox.getStaticTableHeaders();
+    assertEquals(expectedHeaders, actualHeaders);
     }
 
     @Then("The static table should have 3 rows")
