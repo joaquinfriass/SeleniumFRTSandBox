@@ -1,0 +1,5 @@
+Column Name	Data Type
+ID	Integer
+Nombre	String
+Edad	Integer
+Email	String

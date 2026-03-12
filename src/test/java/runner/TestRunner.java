@@ -11,7 +11,7 @@ import pages.BasePage;
 @CucumberOptions(
     features = "src/test/resources", //Directorio de nuestros archivos .feature
     glue = {"steps","hooks"}, // Paquete donde se encuentran nuestras clases de pasos (step definitions)
-    plugin = {"pretty", "html:target/cucumber-reports.html"} // Genera un reporte HTML
+    plugin = {"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"} // Genera un reporte HTML
 )
 
 public class TestRunner {

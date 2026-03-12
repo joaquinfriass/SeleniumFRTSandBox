@@ -96,5 +96,4 @@ public class BasePage {
         return elements.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
-
 }

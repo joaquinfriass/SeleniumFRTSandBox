@@ -3,6 +3,7 @@ package pages;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,9 @@ import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.JavascriptExecutor;
+
+import io.cucumber.java.et.Ja;
 
 //Se crea la clase FRTSandBox que extiende de BasePage, lo que le permite heredar las funcionalidades de manejo del navegador y navegación.
 public class FRTSandBox extends BasePage {
@@ -183,6 +187,10 @@ public class FRTSandBox extends BasePage {
         }
 
         public void validateDynamicTableNoDuplicateCells() {
+            
+            WebElement table = driver.findElement(By.xpath(DynamicTableRowsLocator));
+            ((JavascriptExecutor) BasePage.driver).executeScript("arguments[0].scrollIntoView(true);", table);
+
             List<WebElement> rowElements = driver.findElements(By.xpath(DynamicTableRowsLocator));
             Set<String> cellValues = new HashSet<>();
 
@@ -199,6 +207,7 @@ public class FRTSandBox extends BasePage {
             );
                 }
             }
+            
         }
 
     public void refreshAndValidateDynamicTableValuesChange() {
